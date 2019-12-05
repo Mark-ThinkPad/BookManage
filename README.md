@@ -4,7 +4,7 @@
 
 - 系统环境: `Arch Linux`
 - Python版本: `3.8.0`
-- 数据库:  `Microsoft SQL Server 2017` Developer Edition (64-bit) on Linux (通过AUR安装)
+- 数据库:  `Microsoft SQL Server 2019 (RTM)` Developer Edition (64-bit) on Linux (通过AUR安装)
 
 
 
