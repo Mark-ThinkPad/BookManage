@@ -1,6 +1,6 @@
 # coding: utf-8
-from sqlalchemy import create_engine, Column, DateTime, Float, ForeignKey, Integer, LargeBinary, Numeric, SmallInteger, \
-    Text, Unicode
+from sqlalchemy import (create_engine, Column, DateTime, Float, ForeignKey, Integer, LargeBinary, Numeric, SmallInteger,
+                        Text, Unicode)
 from sqlalchemy.dialects.mssql.base import BIT, MONEY
 from sqlalchemy.schema import FetchedValue
 from sqlalchemy.orm import relationship, scoped_session, sessionmaker
@@ -76,8 +76,7 @@ class TBReader(Base):
     rdPwd = Column(Unicode(20), server_default=FetchedValue())
     rdAdminRoles = Column(SmallInteger)
 
-    TB_ReaderType = relationship('TBReaderType', primaryjoin='TBReader.rdType == TBReaderType.rdType',
-                                 backref='tb_readers')
+    TB_ReaderType = relationship('TBReaderType', primaryjoin='TBReader.rdType == TBReaderType.rdType', backref='tb_readers')
 
     def __str__(self):
         return f'(Reader {self.rdID} {self.rdName} {self.rdSex} {self.rdType} {self.rdDept} {self.rdPhone} {self.rdEmail} {self.rdDateReg} {self.rdStatus} {self.rdBorrowQty} {self.rdPwd} {self.rdAdminRoles})'

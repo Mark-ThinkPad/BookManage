@@ -24,14 +24,14 @@ create table TB_Reader
 (
     rdID int primary key,
     rdName nvarchar(20),
-    rdSex nchar(1),
+    rdSex nchar(1) check (rdSex in ('男', '女')),
     rdType smallint not null,
     rdDept nvarchar(20),
     rdPhone nvarchar(25),
     rdEmail nvarchar(25),
     rdDateReg datetime,
     rdPhoto image,
-    rdStatus nchar(2),
+    rdStatus nchar(2) check (rdStatus in ('有效', '挂失', '注销')),
     rdBorrowQty int default 0,
     rdPwd nvarchar(20) default '123',
     rdAdminRoles smallint,
@@ -48,13 +48,13 @@ create table TB_Book
     bkDatePress datetime,
     bkISBN nvarchar(15),
     bkCatalog nvarchar(30),
-    bkLanguage smallint,
+    bkLanguage smallint check (bkLanguage in (0,1,2,3,4,5)),
     bkPages int,
     bkPrice money,
     bkDateIn datetime,
     bkBrief text,
     bkCover image,
-    bkStatus nchar(2),
+    bkStatus nchar(2) check (bkStatus in ('在馆','借出','遗失','变卖','销毁')),
 )
 go
 create table TB_Borrow
