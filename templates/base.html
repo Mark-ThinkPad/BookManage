@@ -24,14 +24,14 @@
         <div class="navbar-fixed">
             <nav>
                 <div class="nav-wrapper blue">
-                    <a href="" data-target="mobile-sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <a data-target="mobile-sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <div class="container">
                         <a href="/" class="brand-logo">图书管理系统</a>
                         <ul class="right hide-on-med-and-down">
                             <li><a href="/"><i class="material-icons left">home</i>主页</a></li>
                             <li><a href="/archive/"><i class="material-icons left">archive</i>归档</a></li>
                             <li><a href="/books/"><i class="material-icons left">book</i>读书专栏</a></li>
-                            <li><a href="/about/"><i class="material-icons left">info</i>关于</a></li>
+                            <li><a class="btn waves-effect waves-light" href="/login">登录</a></li>
                         </ul>
                     </div>
                 </div>
@@ -42,8 +42,7 @@
             <li><a class="waves-effect waves-light" href="/"><i class="material-icons left">home</i>主页</a></li>
             <li><a class="waves-effect waves-light" href="/archive/"><i class="material-icons left">archive</i>归档</a></li>
             <li><a class="waves-effect waves-light" href="/books/"><i class="material-icons left">book</i>读书专栏</a></li>
-            <li><a class="waves-effect waves-light" href="/about/"><i class="material-icons left">info</i>关于</a></li>
-            <li><a class="waves-effect waves-light" href="/admin_login/"><i class="material-icons left">person</i>管理员登录</a></li>
+            <li><a class="waves-effect waves-light" href="/login"><i class="material-icons left">person_pin</i>登录</a></li>
         </ul>
     </header>
     <main>
@@ -80,6 +79,7 @@
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="/static/js/jquery-3.4.1.min.js" charset="UTF-8"></script>
     <script type="text/javascript" src="/static/js/materialize.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/static/js/js.cookie.min.js" charset="UTF-8"></script>
     <script type="text/javascript" src="/static/js/common.js" charset="UTF-8"></script>
     {% block js %}
     {% endblock %}
