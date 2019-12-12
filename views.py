@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from decorators import login_required
 
 views = Blueprint('views', __name__)
 
@@ -14,5 +15,21 @@ def user_login():
 
 
 @views.route('/user/changePwd')
+@login_required
 def change_pwd():
     return render_template('changePwd.html')
+
+
+@views.route('/404')
+def error_404():
+    return render_template('404.html'), 404
+
+
+@views.route('/403')
+def error_403():
+    return render_template('403.html'), 403
+
+
+@views.route('/500')
+def error_500():
+    return render_template('500.html'), 500

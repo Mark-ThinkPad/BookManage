@@ -10,6 +10,13 @@ main {
 footer strong {
     font-weight: bold;
 }
-#login-card {
+#login-card,
+#changePwd-card {
     margin-top: 16px;
+}
+#bg-500,
+#bg-404,
+#bg-403 {
+    margin-top: 16px;
+    width: 100%;
 }
