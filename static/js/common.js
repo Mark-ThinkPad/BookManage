@@ -16,7 +16,6 @@ $(document).ready(function () {
         Cookies.remove('uid');
         Cookies.remove('pwd');
         Cookies.remove('username');
-        Cookies.remove('role');
         window.location.reload();
     });
 });

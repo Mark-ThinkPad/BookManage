@@ -38,7 +38,6 @@ $(function () {
                     Cookies.set('uid', data.uid);
                     Cookies.set('pwd', data.pwd);
                     Cookies.set('username', data.username);
-                    Cookies.set('role', data.role);
                     // 返回上一页并刷新
                     window.location.href=document.referrer||host + '';
                 } else if (data.status === 0) {

@@ -14,8 +14,7 @@ def login():
     try:
         r: TBReader = TBReader.query.filter(TBReader.rdID == uid, TBReader.rdPwd == pwd).one()
         return {'status': 1, 'message': '登录成功',
-                'uid': r.rdID, 'pwd': pwd, 'username': r.rdName,
-                'role': r.rdAdminRoles}
+                'uid': r.rdID, 'pwd': pwd, 'username': r.rdName}
     except NoResultFound:
         return {'status': 0, 'message': '用户ID或密码错误'}
     except MultipleResultsFound:

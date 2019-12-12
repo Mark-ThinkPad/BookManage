@@ -9,4 +9,6 @@
 from models import *
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
-print(0b0111 & 0b0110)
+print((7 & 0b0110) == 0b0110)
+s = bin(7)
+print(type(s), s)

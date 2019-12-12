@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template
-from decorators import login_required
+from decorators import login_required, permission_check
 
 views = Blueprint('views', __name__)
 
@@ -18,6 +18,13 @@ def user_login():
 @login_required
 def change_pwd():
     return render_template('changePwd.html')
+
+
+@views.route('/borrow/addCard')
+@login_required
+@permission_check(0b0001)
+def add_card():
+    return render_template('addCard.html')
 
 
 @views.route('/404')

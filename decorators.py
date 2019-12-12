@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import request, redirect, url_for, render_template
+from flask import request, redirect, url_for
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from models import TBReader
 
@@ -20,3 +20,19 @@ def login_required(f):
         else:
             return f(*args, **kwargs)
     return isLogin
+
+
+def permission_check(role: bin):
+    def authority(f):
+        @wraps(f)
+        def check(*args, **kwargs):
+            uid = request.cookies.get('uid', False)
+            pwd = request.cookies.get('pwd', False)
+            r: TBReader = TBReader.query.filter(TBReader.rdID == uid, TBReader.rdPwd == pwd).one()
+            user_role: int = r.rdAdminRoles
+            if (user_role & role) == role or role == 0b1000:
+                return f(*args, **kwargs)
+            else:
+                return redirect(url_for('views.error_403'))
+        return check
+    return authority
