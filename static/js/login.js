@@ -23,10 +23,31 @@ $(function () {
     });
     // 点击登录按钮后向后端API发送数据
     $('#login').click(function () {
-
-    });
-    // 点击注册按钮跳转至注册页面
-    $('#register').click(function () {
-        window.location.href = '/register';
+        $.ajax({
+            url: '/api/user/login',
+            type: 'POST',
+            data: {
+                uid: $('#uid').val(),
+                pwd: $('#pwd').val(),
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.status === 1) {
+                    alert(data.message);
+                    // 将登录信息添加到cookies
+                    Cookies.set('uid', data.uid);
+                    Cookies.set('pwd', data.pwd);
+                    Cookies.set('username', data.username);
+                    Cookies.set('role', data.role);
+                    // 返回上一页并刷新
+                    window.location.href=document.referrer||host + '';
+                } else if (data.status === 0) {
+                    alert(data.message);
+                }
+            },
+            error: function (jpXHR) {
+                alert('Status Code: ' + jpXHR.status);
+            },
+        });
     });
 });

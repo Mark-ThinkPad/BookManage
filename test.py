@@ -7,5 +7,10 @@
 # # print(cur.description)
 
 from models import *
-for i in TBReaderType.query.all():
-    print(i)
+from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+try:
+    q = TBReader.query.filter(TBReader.rdID == '2017001', TBReader.rdPwd == '12').one()
+except NoResultFound:
+    print('无查找结果')
+except MultipleResultsFound:
+    print('后台数据出现问题')

@@ -29,21 +29,23 @@
                         <a href="/" class="brand-logo">图书管理系统</a>
                         <ul class="right hide-on-med-and-down">
                             <li><a href="/"><i class="material-icons left">home</i>主页</a></li>
-                            <li><a href="/archive/"><i class="material-icons left">archive</i>归档</a></li>
-                            <li><a href="/books/"><i class="material-icons left">book</i>读书专栏</a></li>
-                            <li><a class="btn waves-effect waves-light" href="/login">登录</a></li>
+                            <li id="user"><a class="btn waves-effect waves-light" href="/user/login">登录</a></li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
 
+        <!-- Dropdown Structure -->
+        <ul id="dropdown" class="dropdown-content">
+            <li><a href="/user/changePwd" id="change_pwd">修改密码</a></li>
+            <li class="divider"></li>
+            <li><a id="logout">退出登录</a></li>
+        </ul>
+
         <ul class="sidenav" id="mobile-sidenav">
             <li><a class="waves-effect waves-light" href="/"><i class="material-icons left">home</i>主页</a></li>
-            <li><a class="waves-effect waves-light" href="/archive/"><i class="material-icons left">archive</i>归档</a></li>
-            <li><a class="waves-effect waves-light" href="/books/"><i class="material-icons left">book</i>读书专栏</a></li>
-            <li><a class="waves-effect waves-light" href="/login"><i class="material-icons left">person_pin</i>登录</a></li>
-        </ul>
+            <li id="user_m"><a class="waves-effect waves-light" href="/user/login"><i class="material-icons left">person_pin</i>登录</a></li>
     </header>
     <main>
     {% block main %}
