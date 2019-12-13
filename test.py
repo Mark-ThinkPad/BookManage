@@ -9,6 +9,7 @@
 from models import *
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
-print((7 & 0b0110) == 0b0110)
-s = bin(7)
-print(type(s), s)
+session = db_session()
+session.query(TBReader).filter(TBReader.rdID == '2017001', TBReader.rdPwd == 'qwert').delete()
+session.commit()
+session.close()

@@ -20,11 +20,11 @@ def change_pwd():
     return render_template('changePwd.html')
 
 
-@views.route('/borrow/addCard')
+@views.route('/reader/add')
 @login_required
-@permission_check(0b0001)
+@permission_check(0b0001, True)
 def add_card():
-    return render_template('addCard.html')
+    return render_template('addReader.html')
 
 
 @views.route('/404')

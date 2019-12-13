@@ -11,7 +11,8 @@ footer strong {
     font-weight: bold;
 }
 #login-card,
-#changePwd-card {
+#changePwd-card,
+#reader-manage {
     margin-top: 16px;
 }
 #bg-500,
@@ -19,4 +20,7 @@ footer strong {
 #bg-403 {
     margin-top: 16px;
     width: 100%;
+}
+#menu-nav {
+    color: #ee6e73;
 }

@@ -22,7 +22,7 @@ def login_required(f):
     return isLogin
 
 
-def permission_check(role: bin):
+def permission_check(role: bin, allowSysAdmin: bool = False):
     def authority(f):
         @wraps(f)
         def check(*args, **kwargs):
@@ -30,8 +30,13 @@ def permission_check(role: bin):
             pwd = request.cookies.get('pwd', False)
             r: TBReader = TBReader.query.filter(TBReader.rdID == uid, TBReader.rdPwd == pwd).one()
             user_role: int = r.rdAdminRoles
-            if (user_role & role) == role or role == 0b1000:
+            if (user_role & role) == role:
                 return f(*args, **kwargs)
+            elif allowSysAdmin:
+                if (user_role & 0b1000) == 0b1000:
+                    return f(*args, **kwargs)
+                else:
+                    return redirect(url_for('views.error_403'))
             else:
                 return redirect(url_for('views.error_403'))
         return check

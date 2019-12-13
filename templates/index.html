@@ -2,11 +2,148 @@
 {% block main %}
 <div class="container">
     <div class="row">
-        <div class="col s6 m4 l3 xl2 ">
-            <div class="card hoverable">
-                <div class="card-title">办理借书证</div>
-                <div class="card-content">
-                    <a class="btn waves-effect waves-light" href="/borrow/addCard">点击进入</a>
+        <div class="col s12">
+            <h5 id="menu-nav">借书证管理</h5>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">办理借书证</span>
+                    <p>借书证管理员/系统管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/reader/add">点击进入</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">修改借书证</span>
+                    <p>借书证管理员/系统管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/reader/change">点击进入</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">挂失借书证</span>
+                    <p>借书证管理员/系统管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/reader/loss/report">点击进入</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">办理解除挂失</span>
+                    <p>借书证管理员/系统管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/reader/loss/cancel">点击进入</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">补办借书证</span>
+                    <p>借书证管理员/系统管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/reader/replace">点击进入</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">注销借书证</span>
+                    <p>借书证管理员/系统管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/reader/delete">点击进入</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">读者类型管理</span>
+                    <p>借书证管理员/系统管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/reader/type/manage">点击进入</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h5 id="menu-nav">图书管理</h5>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">新图书入库</span>
+                    <p>图书管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/book/add">点击进入</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">图书信息维护</span>
+                    <p>图书管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/book/manage">点击进入</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h5 id="menu-nav">借阅管理</h5>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">借书</span>
+                    <p>借阅管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/borrow/add">点击进入</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">续借</span>
+                    <p>借阅管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/borrow/extend">点击进入</a>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 m4 l3">
+            <div class="card hoverable teal lighten-1">
+                <div class="card-content white-text">
+                    <span class="card-title">还书</span>
+                    <p>借阅管理员</p>
+                </div>
+                <div class="card-action">
+                    <a href="/borrow/return">点击进入</a>
                 </div>
             </div>
         </div>
