@@ -23,8 +23,15 @@ def change_pwd():
 @views.route('/reader/add')
 @login_required
 @permission_check(0b0001, True)
-def add_card():
+def add_reader():
     return render_template('addReader.html')
+
+
+@views.route('/reader/type/manage')
+@login_required
+@permission_check(0b0001, True)
+def readerTypeManage():
+    return render_template('ReaderTypeManage.html')
 
 
 @views.route('/404')

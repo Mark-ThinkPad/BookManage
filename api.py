@@ -41,3 +41,22 @@ def changePwd():
     else:
         return {'status': 1, 'message': '密码修改成功, 请重新登录'}
 
+
+@api.route('/reader/type/add', methods=['POST'])
+def addReaderType():
+    pass
+
+
+@api.route('/reader/type/find', methods=['POST'])
+def findReaderType():
+    pass
+
+
+@api.route('/reader/type/change', methods=['POST'])
+def changeReaderType():
+    pass
+
+
+@api.route('/reader/type/delete', methods=['POST'])
+def deleteReaderType():
+    pass

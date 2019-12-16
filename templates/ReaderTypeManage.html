@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="container">
+    <div class="card hoverable" id="readeType-manage">
+        <div class="card-title center teal lighten-1 white-text">添加读者类型</div>
+        <div class="card-content">
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12 m6 l3">
+                            <input id="rdType" type="text" class="validate" maxlength="5" data-length="5">
+                            <label class="active" for="rdType">读者类型编号</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="rdTypeName" type="text" class="validate" maxlength="20" data-length="20">
+                            <label class="active" for="rdTypeName">读者类型名</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="CanLendQty" type="number" class="validate">
+                            <label class="active" for="CanLendQty">可借书数量</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="CanLendDay" type="number" class="validate">
+                            <label class="active" for="CanLendDay">可借书天数</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l3">
+                            <input id="CanContinueTimes" type="number" class="validate">
+                            <label class="active" for="CanContinueTimes">可续借次数</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="PunishRate" type="number" class="validate">
+                            <label class="active" for="PunishRate">罚款率</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="DateVaild" type="text" class="validate" maxlength="5" data-length="5">
+                            <label class="active" for="DateVaild">证书有效期</label>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <button type="button" class="waves-effect waves-light btn" id="addReaderType" disabled>添加</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card hoverable">
+        <div class="card-title center teal lighten-1 white-text">查找读者类型</div>
+        <div class="card-content">
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12 m6 l3">
+                            <input id="rdType_f" type="text" class="validate" maxlength="5" data-length="5">
+                            <label class="active" for="rdType_f">只需要输入读者类型编号</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="rdTypeName_f" type="text" class="validate" maxlength="20" data-length="20" disabled>
+                            <label class="active" for="rdTypeName_f">读者类型名</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="CanLendQty_f" type="number" class="validate" disabled>
+                            <label class="active" for="CanLendQty_f">可借书数量</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="CanLendDay_f" type="number" class="validate" disabled>
+                            <label class="active" for="CanLendDay_f">可借书天数</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l3">
+                            <input id="CanContinueTimes_f" type="number" class="validate" disabled>
+                            <label class="active" for="CanContinueTimes_f">可续借次数</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="PunishRate_f" type="number" class="validate" disabled>
+                            <label class="active" for="PunishRate_f">罚款率</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="DateVaild_f" type="text" class="validate" maxlength="5" data-length="5" disabled>
+                            <label class="active" for="DateVaild_f">证书有效期</label>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <button type="button" class="waves-effect waves-light btn" id="findReaderType" disabled>查找</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card hoverable">
+        <div class="card-title center teal lighten-1 white-text">修改读者类型</div>
+        <div class="card-content">
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12 m6 l3">
+                            <input id="rdType_c" type="text" class="validate" maxlength="5" data-length="5">
+                            <label class="active" for="rdType_c">读者类型编号</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="rdTypeName_c" type="text" class="validate" maxlength="20" data-length="20">
+                            <label class="active" for="rdTypeName_c">读者类型名</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="CanLendQty_c" type="number" class="validate">
+                            <label class="active" for="CanLendQty_c">可借书数量</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="CanLendDay_c" type="number" class="validate">
+                            <label class="active" for="CanLendDay_c">可借书天数</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6 l3">
+                            <input id="CanContinueTimes_c" type="number" class="validate">
+                            <label class="active" for="CanContinueTimes_c">可续借次数</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="PunishRate_c" type="number" class="validate">
+                            <label class="active" for="PunishRate_c">罚款率</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="DateVaild_c" type="text" class="validate" maxlength="5" data-length="5">
+                            <label class="active" for="DateVaild_c">证书有效期</label>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <button type="button" class="waves-effect waves-light btn" id="changeReaderType" disabled>修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
+            <div class="card hoverable">
+                <div class="card-title center teal lighten-1 white-text">删除读者类型</div>
+                <div class="card-content">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="rdType_d" type="text" class="validate" maxlength="5" data-length="5">
+                                    <label class="active" for="rdType_d">只需要输入读者类型编号</label>
+                                </div>
+                            </div>
+                            <div class="center">
+                                <button type="button" class="waves-effect waves-light btn" id="deleteReaderType" disabled>删除</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/js/addReaderType.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/findReaderType.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/changeReaderType.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/deleteReaderType.js" charset="UTF-8"></script>
+{% endblock %}
