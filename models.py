@@ -39,7 +39,7 @@ class TBBook(Base):
 class TBBorrow(Base):
     __tablename__ = 'TB_Borrow'
 
-    BorrowID = Column(Numeric(12, 0), primary_key=True)
+    BorrowID = Column(Numeric(12, 0), primary_key=True, autoincrement=False)
     rdID = Column(ForeignKey('TB_Reader.rdID'))
     bkID = Column(ForeignKey('TB_Book.bkID'))
     IdContinueTimes = Column(Integer)
@@ -62,7 +62,7 @@ class TBBorrow(Base):
 class TBReader(Base):
     __tablename__ = 'TB_Reader'
 
-    rdID = Column(Integer, primary_key=True)
+    rdID = Column(Integer, primary_key=True, autoincrement=False)
     rdName = Column(Unicode(20))
     rdSex = Column(Unicode(1))
     rdType = Column(ForeignKey('TB_ReaderType.rdType'), nullable=False)
@@ -85,7 +85,7 @@ class TBReader(Base):
 class TBReaderType(Base):
     __tablename__ = 'TB_ReaderType'
 
-    rdType = Column(SmallInteger, primary_key=True)
+    rdType = Column(SmallInteger, primary_key=True, autoincrement=False)
     rdTypeName = Column(Unicode(20), nullable=False, unique=True)
     CanLendQty = Column(Integer)
     CanLendDay = Column(Integer)

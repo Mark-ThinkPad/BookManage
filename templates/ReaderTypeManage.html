@@ -34,8 +34,8 @@
                             <label class="active" for="PunishRate">罚款率</label>
                         </div>
                         <div class="input-field col s12 m6 l3">
-                            <input id="DateVaild" type="text" class="validate" maxlength="5" data-length="5">
-                            <label class="active" for="DateVaild">证书有效期</label>
+                            <input id="DateValid" type="text" class="validate" maxlength="5" data-length="5">
+                            <label class="active" for="DateValid">证书有效期</label>
                         </div>
                     </div>
                     <div class="center">
@@ -53,11 +53,11 @@
                     <div class="row">
                         <div class="input-field col s12 m6 l3">
                             <input id="rdType_f" type="text" class="validate" maxlength="5" data-length="5">
-                            <label class="active" for="rdType_f">只需要输入读者类型编号</label>
+                            <label class="active" for="rdType_f">可以输入读者类型编号</label>
                         </div>
                         <div class="input-field col s12 m6 l3">
-                            <input id="rdTypeName_f" type="text" class="validate" maxlength="20" data-length="20" disabled>
-                            <label class="active" for="rdTypeName_f">读者类型名</label>
+                            <input id="rdTypeName_f" type="text" class="validate" maxlength="20" data-length="20">
+                            <label class="active" for="rdTypeName_f">也可以输入读者类型名</label>
                         </div>
                         <div class="input-field col s12 m6 l3">
                             <input id="CanLendQty_f" type="number" class="validate" disabled>
@@ -78,12 +78,13 @@
                             <label class="active" for="PunishRate_f">罚款率</label>
                         </div>
                         <div class="input-field col s12 m6 l3">
-                            <input id="DateVaild_f" type="text" class="validate" maxlength="5" data-length="5" disabled>
-                            <label class="active" for="DateVaild_f">证书有效期</label>
+                            <input id="DateValid_f" type="text" class="validate" maxlength="5" data-length="5" disabled>
+                            <label class="active" for="DateValid_f">证书有效期</label>
                         </div>
                     </div>
                     <div class="center">
                         <button type="button" class="waves-effect waves-light btn" id="findReaderType" disabled>查找</button>
+                        <button type="button" class="waves-effect waves-light btn" id="migrateData" disabled>一键粘贴到修改面板</button>
                     </div>
                 </form>
             </div>
@@ -96,8 +97,8 @@
                 <form class="col s12">
                     <div class="row">
                         <div class="input-field col s12 m6 l3">
-                            <input id="rdType_c" type="text" class="validate" maxlength="5" data-length="5">
-                            <label class="active" for="rdType_c">读者类型编号</label>
+                            <input id="rdType_c" type="text" class="validate" maxlength="5" data-length="5" disabled>
+                            <label class="active" for="rdType_c">读者类型编号(不可修改)</label>
                         </div>
                         <div class="input-field col s12 m6 l3">
                             <input id="rdTypeName_c" type="text" class="validate" maxlength="20" data-length="20">
@@ -122,8 +123,8 @@
                             <label class="active" for="PunishRate_c">罚款率</label>
                         </div>
                         <div class="input-field col s12 m6 l3">
-                            <input id="DateVaild_c" type="text" class="validate" maxlength="5" data-length="5">
-                            <label class="active" for="DateVaild_c">证书有效期</label>
+                            <input id="DateValid_c" type="text" class="validate" maxlength="5" data-length="5">
+                            <label class="active" for="DateValid_c">证书有效期</label>
                         </div>
                     </div>
                     <div class="center">
@@ -143,7 +144,13 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <input id="rdType_d" type="text" class="validate" maxlength="5" data-length="5">
-                                    <label class="active" for="rdType_d">只需要输入读者类型编号</label>
+                                    <label class="active" for="rdType_d">可以输入读者类型编号</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="rdTypeName_d" type="text" class="validate" maxlength="20" data-length="20">
+                                    <label class="active" for="rdTypeName_d">也可以输入读者类型名</label>
                                 </div>
                             </div>
                             <div class="center">

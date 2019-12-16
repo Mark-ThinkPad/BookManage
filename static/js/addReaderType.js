@@ -1,16 +1,16 @@
 $(function () {
     // 初始化input的计数器
-    $('#rdType, #rdTypeName, #DateVaild').characterCounter();
+    $('#rdType, #rdTypeName, #DateValid').characterCounter();
     // 前端判断输入是否为空, 为空时禁用按钮
-    $('#rdType, #rdTypeName, #CanLendQty, #CanLendDay, #CanContinueTimes, #PunishRate, #DateVaild').bind('input propertychange', function (event) {
+    $('#rdType, #rdTypeName, #CanLendQty, #CanLendDay, #CanContinueTimes, #PunishRate, #DateValid').bind('input propertychange', function (event) {
         let rdType = $('#rdType').val();
         let rdTypeName = $('#rdTypeName').val();
         let CanLendQty = $('#CanLendQty').val();
         let CanLendDay = $('#CanLendDay').val();
         let CanContinueTimes = $('#CanContinueTimes').val();
         let PunishRate = $('#PunishRate').val();
-        let DateVaild = $('#DateVaild').val();
-        if (rdType && rdTypeName && CanLendQty && CanLendDay && CanContinueTimes && PunishRate && DateVaild) {
+        let DateValid = $('#DateValid').val();
+        if (rdType && rdTypeName && CanLendQty && CanLendDay && CanContinueTimes && PunishRate && DateValid) {
             $('#addReaderType').attr('disabled', false);
         } else {
             $('#addReaderType').attr('disabled', true);
@@ -27,7 +27,7 @@ $(function () {
                 CanLendDay: $('#CanLendDay').val(),
                 CanContinueTimes: $('#CanContinueTimes').val(),
                 PunishRate: $('#PunishRate').val(),
-                DateVaild: $('#DateVaild').val(),
+                DateValid: $('#DateValid').val(),
             },
             dataType: 'json',
             success: function (data) {
