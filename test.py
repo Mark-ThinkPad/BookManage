@@ -9,7 +9,7 @@
 from models import *
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
-session = db_session()
-session.query(TBReader).filter(TBReader.rdID == '2017001', TBReader.rdPwd == 'qwert').delete()
-session.commit()
-session.close()
+# session = db_session()
+# session.query(TBReader).filter(TBReader.rdID == '2017001', TBReader.rdPwd == 'qwert').delete()
+# session.commit()
+# session.close()

@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template
 from decorators import login_required, permission_check
+from models import TBReaderType
 
 views = Blueprint('views', __name__)
 
@@ -24,7 +25,8 @@ def change_pwd():
 @login_required
 @permission_check(0b0001, True)
 def add_reader():
-    return render_template('addReader.html')
+    rts = TBReaderType.query.all()
+    return render_template('addReader.html', rts=rts)
 
 
 @views.route('/reader/type/manage')

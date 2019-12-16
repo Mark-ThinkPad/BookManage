@@ -5,6 +5,7 @@ from sqlalchemy.dialects.mssql.base import BIT, MONEY
 from sqlalchemy.schema import FetchedValue
 from sqlalchemy.orm import relationship, scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from datetime import datetime
 
 engine = create_engine('mssql+pymssql://LibAdmin:qwert123.@127.0.0.1:1433/Library', convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
@@ -43,8 +44,9 @@ class TBBorrow(Base):
     rdID = Column(ForeignKey('TB_Reader.rdID'))
     bkID = Column(ForeignKey('TB_Book.bkID'))
     IdContinueTimes = Column(Integer)
-    IdDateOut = Column(DateTime)
+    IdDateOut = Column(DateTime, default=datetime.now())
     IdDateRetPlan = Column(DateTime)
+    IdDateRetAct = Column(DateTime)
     IdOverDay = Column(Integer)
     IdOverMoney = Column(MONEY)
     IdPunishMoney = Column(MONEY)
@@ -69,12 +71,12 @@ class TBReader(Base):
     rdDept = Column(Unicode(20))
     rdPhone = Column(Unicode(25))
     rdEmail = Column(Unicode(25))
-    rdDateReg = Column(DateTime)
+    rdDateReg = Column(DateTime, default=datetime.now())
     rdPhoto = Column(LargeBinary)
-    rdStatus = Column(Unicode(2))
+    rdStatus = Column(Unicode(2), default='有效')
     rdBorrowQty = Column(Integer, server_default=FetchedValue())
     rdPwd = Column(Unicode(20), server_default=FetchedValue())
-    rdAdminRoles = Column(SmallInteger)
+    rdAdminRoles = Column(SmallInteger, default=0)
 
     TB_ReaderType = relationship('TBReaderType', primaryjoin='TBReader.rdType == TBReaderType.rdType', backref='tb_readers')
 

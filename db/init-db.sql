@@ -65,6 +65,7 @@ create table TB_Borrow
     IdContinueTimes int,
     IdDateOut datetime,
     IdDateRetPlan datetime,
+    IdDateRetAct datetime,
     IdOverDay int,
     IdOverMoney money,
     IdPunishMoney money,

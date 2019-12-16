@@ -3,6 +3,7 @@ from decorators import login_required, permission_check
 from sqlalchemy.exc import OperationalError, IntegrityError
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from models import TBReader, TBReaderType, TBBook, TBBorrow, db_session
+import datetime
 
 api = Blueprint('api', __name__)
 
@@ -180,3 +181,31 @@ def deleteReaderType():
         return {'status': 0, 'message': '输入的数据类型可能有误'}
     else:
         return {'status': 1, 'message': '指定的读者类型删除成功'}
+
+
+@api.route('/reader/add', methods=['POST'])
+@login_required
+@permission_check(0b0001, True)
+def addReader():
+    pass
+
+
+@api.route('/reader/add/status', methods=['POST'])
+@login_required
+@permission_check(0b0001, True)
+def addReaderStatus():
+    rdID = request.form.get('rdID', False)
+
+    if rdID is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        TBReader.query.filter(TBReader.rdID == rdID).one()
+    except NoResultFound:
+        return {'status': 1, 'message': '此人可以办理借书证'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '借书证数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据类型可能有误'}
+    else:
+        return {'status': 0, 'message': '该人已办理借书证, 无需再次办理'}
