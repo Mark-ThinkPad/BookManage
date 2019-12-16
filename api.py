@@ -151,4 +151,32 @@ def changeReaderType():
 @login_required
 @permission_check(0b0001, True)
 def deleteReaderType():
-    pass
+    rdType = request.form.get('rdType', False)
+    rdTypeName = request.form.get('rdTypeName', False)
+
+    if rdType is False and rdTypeName is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        session = db_session()
+
+        if rdType and rdTypeName:
+            rt: TBReaderType = session.query(TBReaderType).filter(TBReaderType.rdType == rdType,
+                                                                  TBReaderType.rdTypeName == rdTypeName).one()
+        if rdType and rdTypeName is False:
+            rt: TBReaderType = session.query(TBReaderType).filter(TBReaderType.rdType == rdType).one()
+
+        if rdType is False and rdTypeName:
+            rt: TBReaderType = session.query(TBReaderType).filter(TBReaderType.rdTypeName == rdTypeName).one()
+
+        session.delete(rt)
+        session.commit()
+        session.close()
+    except NoResultFound:
+        return {'status': 0, 'message': '未找到指定的读者类型'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '读者类型数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据类型可能有误'}
+    else:
+        return {'status': 1, 'message': '指定的读者类型删除成功'}
