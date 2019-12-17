@@ -14,7 +14,8 @@ footer strong {
 #changePwd-card,
 #readeType-manage,
 #addReader-card,
-#changeReader-card {
+#changeReader-card,
+#lossStatus-card {
     margin-top: 16px;
 }
 #bg-500,

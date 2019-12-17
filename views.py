@@ -37,6 +37,20 @@ def change_reader():
     return render_template('changeReader.html', rts=rts)
 
 
+@views.route('/reader/loss/report')
+@login_required
+@permission_check(0b0001, True)
+def loss_report():
+    return render_template('lossReportReader.html')
+
+
+@views.route('/reader/loss/cancel')
+@login_required
+@permission_check(0b0001, True)
+def loss_cancel():
+    return render_template('lossCancelReader.html')
+
+
 @views.route('/reader/type/manage')
 @login_required
 @permission_check(0b0001, True)
