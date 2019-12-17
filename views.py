@@ -29,6 +29,14 @@ def add_reader():
     return render_template('addReader.html', rts=rts)
 
 
+@views.route('/reader/change')
+@login_required
+@permission_check(0b0001, True)
+def change_reader():
+    rts = TBReaderType.query.all()
+    return render_template('changeReader.html', rts=rts)
+
+
 @views.route('/reader/type/manage')
 @login_required
 @permission_check(0b0001, True)

@@ -187,7 +187,30 @@ def deleteReaderType():
 @login_required
 @permission_check(0b0001, True)
 def addReader():
-    pass
+    rdID = request.form.get('rdID', False)
+    rdName = request.form.get('rdName', False)
+    rdSex = request.form.get('rdSex', False)
+    rdType = request.form.get('rdType', False)
+    rdDept = request.form.get('rdDept', False)
+    rdPhone = request.form.get('rdPhone', False)
+    rdEmail = request.form.get('rdEmail', False)
+
+    if not (rdID and rdName and rdSex and rdType and rdDept and rdPhone and rdEmail):
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        session = db_session()
+        r = TBReader(rdID=rdID, rdName=rdName, rdSex=rdSex, rdType=rdType,
+                     rdDept=rdDept, rdPhone=rdPhone, rdEmail=rdEmail)
+        session.add(r)
+        session.commit()
+        session.close()
+    except IntegrityError:
+        return {'status': 0, 'message': '已存在相同的借书证编号, 无法重新创建'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
+    else:
+        return {'status': 1, 'message': '新借书证创建成功'}
 
 
 @api.route('/reader/add/status', methods=['POST'])
@@ -209,3 +232,40 @@ def addReaderStatus():
         return {'status': 0, 'message': '输入的数据类型可能有误'}
     else:
         return {'status': 0, 'message': '该人已办理借书证, 无需再次办理'}
+
+
+@api.route('/reader/change', methods=['POST'])
+@login_required
+@permission_check(0b0001, True)
+def changeReader():
+    rdID = request.form.get('rdID', False)
+    rdName = request.form.get('rdName', False)
+    rdSex = request.form.get('rdSex', False)
+    rdType = request.form.get('rdType', False)
+    rdDept = request.form.get('rdDept', False)
+    rdPhone = request.form.get('rdPhone', False)
+    rdEmail = request.form.get('rdEmail', False)
+
+    if not (rdID and rdName and rdSex and rdType and rdDept and rdPhone and rdEmail):
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        session = db_session()
+        r: TBReader = session.query(TBReader).filter(TBReader.rdID == rdID).one()
+        r.rdName = rdName
+        r.rdSex = rdSex
+        r.rdType = rdType
+        r.rdDept = rdDept
+        r.rdPhone = rdPhone
+        r.rdEmail = rdEmail
+        session.commit()
+        session.close()
+    except NoResultFound:
+        return {'status': 0, 'message': '未找到指定的借书证'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '借书证数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
+    else:
+        return {'status': 1, 'message': '指定的借书证修改成功'}
+

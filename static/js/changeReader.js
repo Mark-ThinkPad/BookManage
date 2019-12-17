@@ -11,9 +11,9 @@ $(function () {
         let rdEmail = $('#rdEmail').val();
 
         if (rdID && rdName && rdSex && rdType && rdDept && rdPhone && rdEmail){
-            $('#reader_add').attr('disabled', false);
+            $('#reader_change').attr('disabled', false);
         } else {
-            $('#reader_add').attr('disabled', true);
+            $('#reader_change').attr('disabled', true);
         }
     }
     $('#rdID, #rdName, #rdDept, #rdPhone, #rdEmail').bind('input propertychange', function () {
@@ -22,9 +22,9 @@ $(function () {
     $('#rdSex, #rdType').change(function () {
         isEmpty();
     });
-    $('#reader_add').click(function () {
+    $('#reader_change').click(function () {
         $.ajax({
-            url: '/api/reader/add',
+            url: '/api/reader/change',
             type: 'POST',
             data: {
                 rdID: $('#rdID').val(),

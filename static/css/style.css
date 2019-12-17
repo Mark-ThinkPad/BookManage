@@ -13,7 +13,8 @@ footer strong {
 #login-card,
 #changePwd-card,
 #readeType-manage,
-#addReader-card {
+#addReader-card,
+#changeReader-card {
     margin-top: 16px;
 }
 #bg-500,
