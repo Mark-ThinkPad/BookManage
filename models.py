@@ -28,10 +28,10 @@ class TBBook(Base):
     bkLanguage = Column(SmallInteger)
     bkPages = Column(Integer)
     bkPrice = Column(MONEY)
-    bkDateIn = Column(DateTime)
+    bkDateIn = Column(DateTime, default=datetime.now())
     bkBrief = Column(Text(2147483647, 'Chinese_PRC_CI_AS'))
     bkCover = Column(LargeBinary)
-    bkStatus = Column(Unicode(2))
+    bkStatus = Column(Unicode(2), default='在馆')
 
     def __str__(self):
         return f'(Book {self.bkID} {self.bkCode} {self.bkName} {self.bkAuthor} {self.bkPress} {self.bkDatePress} {self.bkISBN} {self.bkCatalog} {self.bkLanguage} {self.bkPages} {self.bkPrice} {self.bkDateIn} {self.bkBrief} {self.bkCover} {self.bkStatus})'

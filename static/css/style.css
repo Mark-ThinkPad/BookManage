@@ -17,7 +17,9 @@ footer strong {
 #changeReader-card,
 #lossStatus-card,
 #replaceReader-card,
-#deleteReader-card {
+#deleteReader-card,
+#addBook-card,
+#book-manage {
     margin-top: 16px;
 }
 #bg-500,

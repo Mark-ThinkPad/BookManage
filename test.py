@@ -11,9 +11,7 @@ from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from random import randint
 
 session = db_session()
-s = session.query(TBReader).all()
-print(len(s), type(s))
-for i in s:
-    print(i.rdBorrowQty, type(i.rdBorrowQty))
+b = TBBook(bkName='test')
+session.add(b)
 session.commit()
 session.close()

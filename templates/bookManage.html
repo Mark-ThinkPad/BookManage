@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="container">
+    <div class="card hoverable" id="book-manage">
+        <div class="card-title center teal lighten-1 white-text">查找图书</div>
+        <div class="card-content">
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12 m6 l3">
+                            <input id="bkID_f" type="number" class="validate">
+                            <label class="active" for="bkID_f">请输入书号</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="bkName_f" type="text" class="validate" disabled>
+                            <label class="active" for="bkName_f">书名</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="bkAuthor_f" type="text" class="validate" disabled>
+                            <label class="active" for="bkAuthor_f">作者</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="bkPress_f" type="text" class="validate" disabled>
+                            <label class="active" for="bkPress_f">出版社</label>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <button type="button" class="waves-effect waves-light btn" id="book_find" disabled>查找</button>
+                        <button type="button" class="waves-effect waves-light btn" id="toChange" disabled>一键粘贴到修改区域</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card hoverable">
+        <div class="card-title center teal lighten-1 white-text">修改图书信息</div>
+        <div class="card-content">
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12 m6 l3">
+                            <input id="bkID_c" type="number" class="validate" disabled>
+                            <label class="active" for="bkID_c">书号(不可修改)</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="bkName_c" type="text" class="validate" maxlength="50" data-length="50">
+                            <label class="active" for="bkName_c">书名</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="bkAuthor_c" type="text" class="validate" maxlength="30" data-length="30">
+                            <label class="active" for="bkAuthor_c">作者</label>
+                        </div>
+                        <div class="input-field col s12 m6 l3">
+                            <input id="bkPress_c" type="text" class="validate" maxlength="50" data-length="50">
+                            <label class="active" for="bkPress_c">出版社</label>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <button type="button" class="waves-effect waves-light btn" id="book_change" disabled>修改</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
+            <div class="card hoverable">
+                <div class="card-title center teal lighten-1 white-text">删除图书</div>
+                <div class="card-content">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                   <input id="bkID_d" type="number" class="validate">
+                                    <label class="active" for="bkID_d">请输入书号</label>
+                                </div>
+                            </div>
+                            <div class="center">
+                                <button type="button" class="waves-effect waves-light btn" id="book_delete" disabled>删除</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/js/findBook.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/changeBook.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/deleteBook.js" charset="UTF-8"></script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
+            <div class="card hoverable" id="addBook-card">
+                <div class="card-title center teal lighten-1 white-text">新书入库</div>
+                <div class="card-content">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="bkName" type="text" class="validate" maxlength="50" data-length="50">
+                                    <label class="active" for="bkName">书名</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                 <div class="input-field col s12">
+                                    <input id="bkAuthor" type="text" class="validate" maxlength="30" data-length="30">
+                                    <label class="active" for="bkAuthor">作者</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                 <div class="input-field col s12">
+                                    <input id="bkPress" type="text" class="validate" maxlength="50" data-length="50">
+                                    <label class="active" for="bkPress">出版社</label>
+                                </div>
+                            </div>
+                             <div class="row">
+                                 <div class="input-field col s12">
+                                    <input id="bkNum" type="number" class="validate">
+                                    <label class="active" for="bkNum">数量</label>
+                                </div>
+                            </div>
+                            <div class="center">
+                                <button type="button" class="waves-effect waves-light btn" id="book_add" disabled>添加</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/js/addBook.js" charset="UTF-8"></script>
+{% endblock %}

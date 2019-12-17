@@ -80,4 +80,9 @@ create login LibAdmin with password = 'qwert123.', default_database = Library
 create user LibAdmin for login LibAdmin with default_schema = dbo
 exec sp_addrolemember 'db_owner', 'LibAdmin'
 go
+-- 系统自动生成bkID, 创建after触发器将bkID自动赋给bkCode, 免去人工编码
+create trigger IDtoCode on TB_Book for insert
+as
+    update TB_Book set bkCode=cast(bkID as nvarchar(20)) where bkCode is null
+go
 

@@ -72,6 +72,20 @@ def readerTypeManage():
     return render_template('ReaderTypeManage.html')
 
 
+@views.route('/book/add')
+@login_required
+@permission_check(0b0010)
+def book_add():
+    return render_template('addBook.html')
+
+
+@views.route('/book/manage')
+@login_required
+@permission_check(0b0010)
+def book_manage():
+    return render_template('bookManage.html')
+
+
 @views.route('/404')
 def error_404():
     return render_template('404.html'), 404

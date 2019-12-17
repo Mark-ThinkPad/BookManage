@@ -1,8 +1,8 @@
 from flask import Blueprint, request
 from decorators import login_required, permission_check
-from sqlalchemy.exc import OperationalError, IntegrityError
+from sqlalchemy.exc import OperationalError, IntegrityError, ProgrammingError
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
-from models import TBReader, TBReaderType, TBBook, TBBorrow, db_session
+from models import TBReader, TBReaderType, TBBook, TBBorrow, db_session, engine
 from random import randint
 import datetime
 
@@ -439,3 +439,106 @@ def deleteReader():
         return {'status': 0, 'message': '借书证数据异常'}
     except OperationalError:
         return {'status': 0, 'message': '输入的数据可能有误'}
+
+
+@api.route('/book/add', methods=['POST'])
+@login_required
+@permission_check(0b0010)
+def addBook():
+    bkName = request.form.get('bkName', False)
+    bkAuthor = request.form.get('bkAuthor', False)
+    bkPress = request.form.get('bkPress', False)
+    bkNum = request.form.get('bkNum', False)
+    bkNum = int(bkNum)
+
+    if not (bkName and bkAuthor and bkPress):
+        return {'status': 0, 'message': '传入数据不全'}
+
+    if bkNum <= 0:
+        return {'status': 0, 'message': '新书数量为零或负数'}
+
+    try:
+        con = engine.connect()
+        for i in range(bkNum):
+            con.execute(f"insert into TB_Book (bkName, bkAuthor, bkPress, bkStatus) values ('{bkName}', '{bkAuthor}', '{bkPress}', '在馆')")
+        con.close()
+    except ProgrammingError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
+    else:
+        return {'status': 1, 'message': '新书入库成功'}
+
+
+@api.route('/book/find', methods=['POST'])
+@login_required
+@permission_check(0b0010)
+def findBook():
+    bkID = request.form.get('bkID', False)
+
+    if bkID is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        b: TBBook = TBBook.query.filter(TBBook.bkID == bkID).one()
+        return {'status': 1, 'message': '已找到一本图书', 'bkID': b.bkID,
+                'bkName': b.bkName, 'bkAuthor': b.bkAuthor, 'bkPress': b.bkPress}
+    except NoResultFound:
+        return {'status': 0, 'message': '没有查询到相应的图书'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '图书数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
+
+
+@api.route('/book/change', methods=['POST'])
+@login_required
+@permission_check(0b0010)
+def changeBook():
+    bkID = request.form.get('bkID', False)
+    bkName = request.form.get('bkName', False)
+    bkAuthor = request.form.get('bkAuthor', False)
+    bkPress = request.form.get('bkPress', False)
+
+    if not (bkName and bkAuthor and bkPress and bkID):
+        return {'status': 0, 'message': '传入数据不全'}
+
+    try:
+        session = db_session()
+        b: TBBook = session.query(TBBook).filter(TBBook.bkID == bkID).one()
+        b.bkName = bkName
+        b.bkAuthor = bkAuthor
+        b.bkPress = bkPress
+        session.commit()
+        session.close()
+    except NoResultFound:
+        return {'status': 0, 'message': '没有查询到相应的图书'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '图书数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
+    else:
+        return {'status': 1, 'message': '修改成功'}
+
+
+@api.route('/book/delete', methods=['POST'])
+@login_required
+@permission_check(0b0010)
+def deleteBook():
+    bkID = request.form.get('bkID', False)
+
+    if bkID is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        session = db_session()
+        b: TBBook = session.query(TBBook).filter(TBBook.bkID == bkID).one()
+        session.delete(b)
+        session.commit()
+        session.close()
+    except NoResultFound:
+        return {'status': 0, 'message': '没有查询到相应的图书'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '图书数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
+    else:
+        return {'status': 1, 'message': '指定的图书删除成功'}
