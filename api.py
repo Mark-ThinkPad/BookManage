@@ -460,7 +460,7 @@ def addBook():
     try:
         con = engine.connect()
         for i in range(bkNum):
-            con.execute(f"insert into TB_Book (bkName, bkAuthor, bkPress, bkStatus) values ('{bkName}', '{bkAuthor}', '{bkPress}', '在馆')")
+            con.execute(f"insert into TB_Book (bkName, bkAuthor, bkPress, bkStatus, bkPrice) values ('{bkName}', '{bkAuthor}', '{bkPress}', '在馆', 20)")
         con.close()
     except ProgrammingError:
         return {'status': 0, 'message': '输入的数据可能有误'}
@@ -542,3 +542,86 @@ def deleteBook():
         return {'status': 0, 'message': '输入的数据可能有误'}
     else:
         return {'status': 1, 'message': '指定的图书删除成功'}
+
+
+@api.route('/borrow/add', methods=['POST'])
+@login_required
+@permission_check(0b0100)
+def addBorrow():
+    rdID = request.form.get('rdID', False)
+    bkID = request.form.get('bkID', False)
+    op = request.cookies.get('uid', False)
+
+    if rdID is False and bkID is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        session = db_session()
+        b = TBBorrow(rdID=rdID, bkID=bkID, OperatorLend=op, IdContinueTimes=0)
+        r: TBReader = session.query(TBReader).filter(TBReader.rdID == rdID).one()
+        rt: TBReaderType = session.query(TBReaderType).filter(TBReaderType.rdType == r.rdType).one()
+        b.IdDateOut = datetime.datetime.now()
+        b.IdDateRetPlan = datetime.datetime.now() + datetime.timedelta(days=rt.CanLendDay)
+        session.add(b)
+        r.rdBorrowQty += 1
+        bk: TBBook = session.query(TBBook).filter(TBBook.bkID == bkID).one()
+        bk.bkStatus = '借出'
+        session.commit()
+        session.close()
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
+    except (NoResultFound, MultipleResultsFound):
+        return {'status': 0, 'message': '后台数据异常'}
+    else:
+        return {'status': 1, 'message': '借书办理成功'}
+
+
+@api.route('/borrow/add/status/reader', methods=['POST'])
+@login_required
+@permission_check(0b0100)
+def reader_status():
+    rdID = request.form.get('rdID', False)
+
+    if rdID is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        r: TBReader = TBReader.query.filter(TBReader.rdID == rdID).one()
+        if r.rdStatus in ('挂失', '注销'):
+            return {'status': 0, 'message': '借书证状态为挂失或注销, 不能借书'}
+        rt: TBReaderType = TBReaderType.query.filter(TBReaderType.rdType == r.rdType).one()
+        if rt.CanLendQty <= r.rdBorrowQty:
+            return {'status': 0, 'message': '可借书数量不足, 不能借书'}
+        b: TBBorrow = TBBorrow.query.filter(TBBorrow.rdID == rdID).all()
+        for i in b:
+            if i.IsHasReturn == 0 and str(datetime.datetime.now()) > str(i.IdDateRetPlan):
+                return {'status': 0, 'message': '存在超期未归还图书, 不能借书'}
+        return {'status': 1, 'message': '该读者可以借书'}
+    except NoResultFound:
+        return {'status': 0, 'message': '没有查询到相应的借书证'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '借书证数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
+
+
+@api.route('/borrow/add/status/book', methods=['POST'])
+@login_required
+@permission_check(0b0100)
+def book_status():
+    bkID = request.form.get('bkID', False)
+
+    if bkID is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        b: TBBook = TBBook.query.filter(TBBook.bkID == bkID).one()
+        if b.bkStatus != '在馆':
+            return {'status': 0, 'message': '该图书不在馆, 不能借书'}
+        return {'status': 1, 'message': '该图书在馆, 可以借书'}
+    except NoResultFound:
+        return {'status': 0, 'message': '没有查询到相应的图书'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '图书数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}

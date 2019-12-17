@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block main %}
+<div class="container">
+    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
+            <div class="card hoverable" id="reader-status">
+                <div class="card-title center teal lighten-1 white-text">读者状态查询</div>
+                <div class="card-content">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="rdID_s" type="number" class="validate">
+                                    <label class="active" for="rdID_s">请输入借书证号</label>
+                                </div>
+                            </div>
+                            <div class="center">
+                                <button type="button" class="waves-effect waves-light btn" id="reader_status" disabled>查询</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
+            <div class="card hoverable">
+                <div class="card-title center teal lighten-1 white-text">待借图书状态查询</div>
+                <div class="card-content">
+                    <div class="row">
+                        <form class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="bkID_s" type="number" class="validate">
+                                    <label class="active" for="bkID_s">请输入书号</label>
+                                </div>
+                            </div>
+                            <div class="center">
+                                <button type="button" class="waves-effect waves-light btn" id="book_status" disabled>查询</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col s12 m8 offset-m2 l6 offset-l3 xl4 offset-xl4">
+                <div class="card hoverable">
+                    <div class="card-title center teal lighten-1 white-text">办理借书</div>
+                    <div class="card-content">
+                        <div class="row">
+                            <form class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="rdID" type="number" class="validate">
+                                        <label class="active" for="rdID">请输入借书证号</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="bkID" type="number" class="validate">
+                                        <label class="active" for="bkID">请输入书号</label>
+                                    </div>
+                                </div>
+                                <div class="center">
+                                    <button type="button" class="waves-effect waves-light btn" id="borrow_add" disabled>办理</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/js/readerStatus.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/bookStatus.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/addBorrow.js" charset="UTF-8"></script>
+{% endblock %}

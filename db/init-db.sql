@@ -59,7 +59,7 @@ create table TB_Book
 go
 create table TB_Borrow
 (
-    BorrowID numeric(12, 0) primary key,
+    BorrowID int primary key identity(1, 1),
     rdID int,
     bkID int,
     IdContinueTimes int,

@@ -86,6 +86,13 @@ def book_manage():
     return render_template('bookManage.html')
 
 
+@views.route('/borrow/add')
+@login_required
+@permission_check(0b0100)
+def borrow_add():
+    return render_template('addBorrow.html')
+
+
 @views.route('/404')
 def error_404():
     return render_template('404.html'), 404

@@ -40,11 +40,11 @@ class TBBook(Base):
 class TBBorrow(Base):
     __tablename__ = 'TB_Borrow'
 
-    BorrowID = Column(Numeric(12, 0), primary_key=True, autoincrement=False)
+    BorrowID = Column(Integer, primary_key=True)
     rdID = Column(ForeignKey('TB_Reader.rdID'))
     bkID = Column(ForeignKey('TB_Book.bkID'))
     IdContinueTimes = Column(Integer)
-    IdDateOut = Column(DateTime, default=datetime.now())
+    IdDateOut = Column(DateTime)
     IdDateRetPlan = Column(DateTime)
     IdDateRetAct = Column(DateTime)
     IdOverDay = Column(Integer)

@@ -19,7 +19,8 @@ footer strong {
 #replaceReader-card,
 #deleteReader-card,
 #addBook-card,
-#book-manage {
+#book-manage,
+#reader-status{
     margin-top: 16px;
 }
 #bg-500,
