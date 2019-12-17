@@ -3,6 +3,7 @@ from decorators import login_required, permission_check
 from sqlalchemy.exc import OperationalError, IntegrityError
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from models import TBReader, TBReaderType, TBBook, TBBorrow, db_session
+from random import randint
 import datetime
 
 api = Blueprint('api', __name__)
@@ -370,3 +371,43 @@ def lossCancelStatus():
         return {'status': 0, 'message': '借书证数据异常'}
     except OperationalError:
         return {'status': 0, 'message': '输入的数据可能有误'}
+
+
+@api.route('/reader/replace', methods=['POST'])
+@login_required
+@permission_check(0b0001, True)
+def replaceReader():
+    rdID = request.form.get('rdID', False)
+
+    if rdID is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        session = db_session()
+        r: TBReader = session.query(TBReader).filter(TBReader.rdID == rdID).one()
+        if r.rdStatus == '挂失':
+            r.rdStatus = '注销'
+            rdID_n = rdID + str(randint(0, 10))
+            rn = TBReader(rdID=rdID_n, rdName=r.rdName, rdSex=r.rdSex, rdType=r.rdType,
+                          rdDept=r.rdDept, rdPhone=r.rdPhone, rdEmail=r.rdEmail,
+                          rdDateReg=r.rdDateReg, rdPhoto=r.rdPhoto, rdBorrowQty=r.rdBorrowQty,
+                          rdPwd=r.rdPwd, rdAdminRoles=r.rdAdminRoles)
+            session.add(rn)
+            session.commit()
+            bl = session.query(TBBorrow).filter(TBBorrow.rdID == rdID).all()
+            for i in bl:
+                i.rdID = rdID_n
+                session.commit()
+            session.close()
+            return {'status': 1, 'message': '补办成功', 'new_rdID': rdID_n}
+        else:
+            session.close()
+            return {'status': 0, 'message': '该借书证状态不是挂失, 无法办理补办'}
+    except NoResultFound:
+        return {'status': 0, 'message': '未找到指定的借书证'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '借书证数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
+    except IntegrityError:
+        return {'status': 0, 'message': '随机产生的新编号与数据库现有的借书证号出现重复, 请再次点击办理按钮'}

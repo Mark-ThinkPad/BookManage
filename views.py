@@ -51,6 +51,13 @@ def loss_cancel():
     return render_template('lossCancelReader.html')
 
 
+@views.route('/reader/replace')
+@login_required
+@permission_check(0b0001, True)
+def replace_Reader():
+    return render_template('replaceReader.html')
+
+
 @views.route('/reader/type/manage')
 @login_required
 @permission_check(0b0001, True)

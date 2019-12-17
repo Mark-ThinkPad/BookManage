@@ -8,8 +8,12 @@
 
 from models import *
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+from random import randint
 
-# session = db_session()
-# session.query(TBReader).filter(TBReader.rdID == '2017001', TBReader.rdPwd == 'qwert').delete()
-# session.commit()
-# session.close()
+session = db_session()
+s = session.query(TBBorrow).filter(TBBorrow.rdID == '10').all()
+print(len(s), type(s))
+for i in s:
+    print('触发')
+session.commit()
+session.close()
