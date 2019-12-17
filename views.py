@@ -58,6 +58,13 @@ def replace_Reader():
     return render_template('replaceReader.html')
 
 
+@views.route('/reader/delete')
+@login_required
+@permission_check(0b0001, True)
+def delete_Reader():
+    return render_template('deleteReader.html')
+
+
 @views.route('/reader/type/manage')
 @login_required
 @permission_check(0b0001, True)

@@ -411,3 +411,31 @@ def replaceReader():
         return {'status': 0, 'message': '输入的数据可能有误'}
     except IntegrityError:
         return {'status': 0, 'message': '随机产生的新编号与数据库现有的借书证号出现重复, 请再次点击办理按钮'}
+
+
+@api.route('/reader/delete', methods=['POST'])
+@login_required
+@permission_check(0b0001, True)
+def deleteReader():
+    rdID = request.form.get('rdID', False)
+
+    if rdID is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        session = db_session()
+        r: TBReader = session.query(TBReader).filter(TBReader.rdID == rdID).one()
+        if r.rdBorrowQty > 0:
+            session.close()
+            return {'status': 0, 'message': '有未归还图书, 不能办理注销'}
+        else:
+            r.rdStatus = '注销'
+            session.commit()
+            session.close()
+            return {'status': 1, 'message': '注销成功'}
+    except NoResultFound:
+        return {'status': 0, 'message': '未找到指定的借书证'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '借书证数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}

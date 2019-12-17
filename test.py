@@ -11,9 +11,9 @@ from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from random import randint
 
 session = db_session()
-s = session.query(TBBorrow).filter(TBBorrow.rdID == '10').all()
+s = session.query(TBReader).all()
 print(len(s), type(s))
 for i in s:
-    print('触发')
+    print(i.rdBorrowQty, type(i.rdBorrowQty))
 session.commit()
 session.close()
