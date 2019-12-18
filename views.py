@@ -100,6 +100,13 @@ def borrow_continue():
     return render_template('continueBorrow.html')
 
 
+@views.route('/borrow/return')
+@login_required
+@permission_check(0b0100)
+def borrow_return():
+    return render_template('returnBorrow.html')
+
+
 @views.route('/404')
 def error_404():
     return render_template('404.html'), 404

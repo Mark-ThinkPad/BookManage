@@ -646,7 +646,7 @@ def continueBorrow():
         session.commit()
         session.close()
     except NoResultFound:
-        return {'status': 0, 'message': '没有查询到借阅记录'}
+        return {'status': 0, 'message': '没有查询到相应的借阅记录'}
     except MultipleResultsFound:
         return {'status': 0, 'message': '借阅数据异常'}
     except OperationalError:
@@ -679,8 +679,48 @@ def continue_status():
         session.close()
         return {'status': 1, 'message': '该书可以办理续借, 借书证为: ' + str(r.rdID) + ', 请借阅管理员检查读者出示的借书证是否一致'}
     except NoResultFound:
-        return {'status': 0, 'message': '没有查询到借阅记录'}
+        return {'status': 0, 'message': '没有查询到相应的借阅记录'}
     except MultipleResultsFound:
         return {'status': 0, 'message': '借阅数据异常'}
     except OperationalError:
         return {'status': 0, 'message': '输入的数据可能有误'}
+
+
+@api.route('/borrow/return', methods=['POST'])
+@login_required
+@permission_check(0b0100)
+def returnBorrow():
+    bkID = request.form.get('bkID', False)
+    rdID = request.form.get('rdID', False)
+    op = request.cookies.get('uid', False)
+
+    if bkID is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        session = db_session()
+        bk: TBBook = session.query(TBBook).filter(TBBook.bkID == bkID).one()
+        bo: TBBorrow = session.query(TBBorrow).filter(TBBorrow.bkID == bkID, TBBorrow.rdID == rdID, TBBorrow.IsHasReturn == 0).one()
+        r: TBReader = session.query(TBReader).filter(TBReader.rdID == rdID).one()
+        rt: TBReaderType = TBReaderType.query.filter(TBReaderType.rdType == r.rdType).one()
+        bo.IdDateRetAct = datetime.datetime.now()
+        overdate = datetime.datetime.now() - bo.IdDateRetPlan
+        overdays = overdate.days
+        if overdays > 0:
+            bo.IdOverDay = overdays
+            bo.IdOverMoney = overdays * rt.PunishRate
+            bo.IdPunishMoney = overdays * rt.PunishRate
+        bo.OperatorRet = op
+        bo.IsHasReturn = 1
+        bk.bkStatus = '在馆'
+        r.rdBorrowQty -= 1
+        session.commit()
+        session.close()
+    except NoResultFound:
+        return {'status': 0, 'message': '没有查询到相应的借阅记录'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '借阅数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
+    else:
+        return {'status': 1, 'message': '还书成功'}
