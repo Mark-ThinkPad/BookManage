@@ -32,8 +32,12 @@
     
 ## 项目运行
 
-- 首先初始化数据库
+- 安装需要的Python第三方库
+```bash
+pip install -r requirements.txt
+```
 
+- 初始化数据库
 ```
 执行 /db/ 文件夹中的 init-db.sql 完成数据库及表的创建, 如果需要初始用户数据, 可以执行 test_data.sql
 ```
