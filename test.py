@@ -11,8 +11,8 @@ from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from random import randint
 
 session = db_session()
-b = session.query(TBReader).all()
+b = session.query(TBBorrow).all()
 for i in b:
-    print(type(i.rdDateReg), str(i.rdDateReg))
+    print(type(i.IsHasReturn), i.IsHasReturn)
 session.commit()
 session.close()

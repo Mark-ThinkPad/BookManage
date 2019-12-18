@@ -625,3 +625,62 @@ def book_status():
         return {'status': 0, 'message': '图书数据异常'}
     except OperationalError:
         return {'status': 0, 'message': '输入的数据可能有误'}
+
+
+@api.route('/borrow/continue', methods=['POST'])
+@login_required
+@permission_check(0b0100)
+def continueBorrow():
+    bkID = request.form.get('bkID', False)
+
+    if bkID is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        session = db_session()
+        bo: TBBorrow = session.query(TBBorrow).filter(TBBorrow.bkID == bkID, TBBorrow.IsHasReturn == 0).one()
+        r: TBReader = session.query(TBReader).filter(TBReader.rdID == bo.rdID).one()
+        rt: TBReaderType = TBReaderType.query.filter(TBReaderType.rdType == r.rdType).one()
+        bo.IdContinueTimes += 1
+        bo.IdDateRetPlan += datetime.timedelta(days=rt.CanLendDay)
+        session.commit()
+        session.close()
+    except NoResultFound:
+        return {'status': 0, 'message': '没有查询到借阅记录'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '借阅数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
+    else:
+        return {'status': 1, 'message': '续借办理成功'}
+
+
+@api.route('/borrow/continue/status', methods=['POST'])
+@login_required
+@permission_check(0b0100)
+def continue_status():
+    bkID = request.form.get('bkID', False)
+
+    if bkID is False:
+        return {'status': 0, 'message': '传入数据不完整'}
+
+    try:
+        session = db_session()
+        bk: TBBook = session.query(TBBook).filter(TBBook.bkID == bkID).one()
+        if bk.bkStatus != '借出':
+            return {'status': 0, 'message': '图书不是借出状态, 不能办理续借'}
+        bo: TBBorrow = session.query(TBBorrow).filter(TBBorrow.bkID == bkID, TBBorrow.IsHasReturn == 0).one()
+        r: TBReader = session.query(TBReader).filter(TBReader.rdID == bo.rdID).one()
+        if r.rdStatus in ('挂失', '注销'):
+            return {'status': 0, 'message': '借书证状态为挂失或注销, 不能办理续借'}
+        rt: TBReaderType = TBReaderType.query.filter(TBReaderType.rdType == r.rdType).one()
+        if bo.IdContinueTimes >= rt.CanContinueTimes:
+            return {'status': 0, 'message': '续借次数已用完, 不能办理续借'}
+        session.close()
+        return {'status': 1, 'message': '该书可以办理续借, 借书证为: ' + str(r.rdID) + ', 请借阅管理员检查读者出示的借书证是否一致'}
+    except NoResultFound:
+        return {'status': 0, 'message': '没有查询到借阅记录'}
+    except MultipleResultsFound:
+        return {'status': 0, 'message': '借阅数据异常'}
+    except OperationalError:
+        return {'status': 0, 'message': '输入的数据可能有误'}
