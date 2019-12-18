@@ -1,3 +1,3 @@
 git add .
-git commit -m 'just work on it'
+git commit -m 'finished'
 git push

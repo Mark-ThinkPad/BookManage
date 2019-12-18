@@ -17,22 +17,25 @@
     - 系统环境: `Windows 7 SP1 64-bit`
     - Python版本: `3.6.7`
     - 数据库: `Microsoft SQL Server 2014 (X64 SP3)`
-    
-## 前后端方案
 
-- 前端:
+## 实现方案
+
+- UI设计及实现: Web网页
+- Web前端:
     - `Materialize` v1.0.0
     - `jQuery` v3.4.1
+    - `js-cookie` v2.2.1
 - 后端:
     - `Python Flask` v1.1.1
     - `Microsoft SQL Server` (版本见测试平台)
+- ORM方案: `SQLAlchemy` v1.3.11 (先设计数据库再使用 `sqlacodegen` 工具生成 `models.py` )
     
 ## 项目运行
 
 - 首先初始化数据库
 
 ```
-执行 /db/ 文件夹中的 xxx.sql 完成数据库及表的创建
+执行 /db/ 文件夹中的 init-db.sql 完成数据库及表的创建, 如果需要初始用户数据, 可以执行 test_data.sql
 ```
 
 - 运行开发服务器
@@ -61,7 +64,3 @@ from collections.abc import Iterable
 ```bash
 sudo python setup.py install
 ```
-
-## To-Do List
-
-- 项目完成后生成 `requirements.txt`
