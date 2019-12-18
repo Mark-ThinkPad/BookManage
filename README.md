@@ -20,7 +20,7 @@
 
 ## 实现方案
 
-- UI设计及实现: Web网页
+- UI设计及实现: Web网页(做了移动端的响应式布局)
 - Web前端:
     - `Materialize` v1.0.0
     - `jQuery` v3.4.1
